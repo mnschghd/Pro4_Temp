@@ -19,7 +19,8 @@ node_modules/
 # Pi agent
 .pi/
 
-# Doc files (formal docs make it look less human)
+# Doc files — exclude completely, no exceptions
 *.md
 !README.md
+docs/
 ESP32S3/docs/
