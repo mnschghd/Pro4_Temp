@@ -18,3 +18,8 @@ node_modules/
 
 # Pi agent
 .pi/
+
+# Doc files (formal docs make it look less human)
+*.md
+!README.md
+ESP32S3/docs/
