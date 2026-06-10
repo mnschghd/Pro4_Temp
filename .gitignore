@@ -15,8 +15,6 @@ __pycache__/
 
 # Node
 node_modules/
-
-# Pi agent
 .pi/
 
 # Doc files — exclude completely, no exceptions
