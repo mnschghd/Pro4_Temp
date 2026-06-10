@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESP32S3-WebDrive</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- HEADER -->
+  <header>
+    <h1>ESP32S3-WebDrive</h1>
+    <span id="conn-status" class="status-dot disconnect">Disconnected</span>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div id="toolbar">
+    <button id="btn-new-folder" class="btn" title="Create directory">+ New Folder</button>
+    <div id="upload-zone" class="upload-zone">
+      <span>Drop files here or click to browse</span>
+      <input type="file" id="file-input" multiple hidden>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <nav id="breadcrumb"></nav>
+
+  <!-- FILE TABLE -->
+  <table id="file-table">
+    <thead>
+      <tr><th class="col-name">Name</th><th class="col-size">Size</th><th class="col-actions">Actions</th></tr>
+    </thead>
+    <tbody id="file-body"></tbody>
+  </table>
+
+  <!-- EMPTY STATE -->
+  <div id="empty-state" class="hidden">
+    <p>This folder is empty.</p>
+    <p>Drop files here to upload.</p>
+  </div>
+
+  <!-- DRAG OVERLAY -->
+  <div id="drop-overlay" class="hidden">
+    <div class="drop-msg">Drop files to upload</div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <footer id="status-bar">
+    <span id="status-text">Connecting...</span>
+  </footer>
+</div>
+
+<!-- NEW FOLDER DIALOG -->
+<dialog id="dialog-new-folder">
+  <form method="dialog">
+    <label>Folder name
+      <input type="text" id="new-folder-name" autocomplete="off" required>
+    </label>
+    <menu>
+      <button value="cancel" type="reset">Cancel</button>
+      <button value="ok" class="btn-primary" type="submit">Create</button>
+    </menu>
+  </form>
+</dialog>
+
+<!-- TOAST -->
+<div id="toast" class="hidden"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+h3. Sa, 06. Juni 2026: WLAN-Access-Point-Konfiguration
+
+** Recherche und Implementierung des ESP32-S3 WiFi softAP-Modus mittels ESP-IDF (esp_wifi.h).
+** Konfiguration des Access Points mit SSID "ESP32S3-WebDrive", WPA2-Verschlüsselung und wählbarem Kanal.
+** Auslagerung aller WLAN-Einstellungen (SSID, Passwort, Kanal) in eine zentrale Konfigurationsdatei (webdrive_config.h), sodass die Zugangsdaten ohne Toolchain-Kenntnisse änderbar sind.
+** Integration der WLAN-Initialisierung in den Systemstart (app_main) sowie Fehlerbehandlung bei fehlschlagender Authentifizierung.
+** Funktionstest: Verbindungsaufbau mit einem Client-Gerät erfolgreich — Netzwerk sichtbar, Passwort-Abfrage via WPA2 funktioniert.
+* *Zeitaufwand:* 2,0 Stunden
+
+h3. Mo, 08. Juni 2026: Webserver & Web-Frontend (Tag 1)
+
+** Recherche und Evaluierung des ESP-IDF HTTP-Server-Moduls (esp_http_server) für die REST-API-Implementierung.
+** Entwurf einer REST-API mit sechs Endpunkten: Dateiliste abrufen, Datei herunterladen, Datei hochladen, Datei/Verzeichnis löschen, Verzeichnis anlegen, Geräte-Status abfragen.
+** Implementierung des HTTP-Servers mit URI-Routing, HTTP-Method-Dispatching (GET, POST, DELETE) und chunked JSON-Antworten für die Dateiliste.
+** Einrichtung des SPIFFS-Dateisystems mit 2,3 MB Flash-Partition inklusive automount und format-on-fail-Logik.
+** Schreiben der file_handler-Schnittstelle: Directory-Listing, mkdir -p, unlink, stat über POSIX-APIs.
+** Einbettung der späteren Web-Oberfläche als embedded resource (EMBED_FILES) direkt in die Firmware.
+* *Zeitaufwand:* 3,5 Stunden
+
+h3. Di, 09. Juni 2026: Webserver & Web-Frontend (Tag 2)
+
+** Entwicklung der Single-Page-Application (HTML/CSS/JS) als Bedienoberfläche für den Dateiserver.
+** HTML-Struktur: File-Liste als Tabelle, Breadcrumb-Navigation, Upload-Zone, Status-Leiste, Dialog für neue Ordner.
+** CSS Dark-Theme im GitHub-Stil mit responsivem Layout und Hover-Effekten.
+** JavaScript: Async-API-Client mittels Fetch/XMLHttpRequest, Drag-and-Drop-Upload mit Fortschrittsanzeige, interaktive Ordner-Navigation mit Pfad-Aufbereitung, Download-Trigger über temporäre DOM-Elemente, Löschen mit Confirm-Dialog.
+** Integration des Frontends in den Build-Prozess (embedded firmware resource, Auslieferung direkt aus dem Flash-Speicher ohne externe Abhängigkeiten).
+** Build-Debugging (GCC-Warnings, Linker-Symbolauflösung, Partition-Table-Korrektur) und erfolgreiches Flashen auf die Zielhardware.
+** Abschlusstest: File-Server voll funktionsfähig — Upload, Download, Delete, Ordner anlegen und Statusabfrage über das Web-Interface bestätigt.
+* *Zeitaufwand:* 3,5 Stunden

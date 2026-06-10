@@ -1,0 +1,20 @@
+menu "ESP32S3-WebDrive"
+
+    comment "WiFi SSID and password are configured in main/webdrive_config.h"
+
+    config WEBDRIVE_MAX_UPLOAD_SIZE_KB
+        int "Maximum upload file size (KB)"
+        default 4096
+        range 1 32768
+        help
+            Files larger than this are rejected at upload time.
+            (Also set WEBDRIVE_MAX_UPLOAD_SIZE in webdrive_config.h)
+
+    config WEBDRIVE_SPIFFS_MAX_FILES
+        int "Max open files on SPIFFS"
+        default 5
+        range 2 10
+        help
+            Simultaneous open file descriptors.
+
+endmenu

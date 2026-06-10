@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Keystroke Log Viewer</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    background: #1e1e1e; color: #d4d4d4;
+    font-family: "Courier New", monospace; font-size: 14px;
+    padding: 24px; line-height: 1.9; margin: 0;
+  }
+  h1 { color: #569cd6; margin-bottom: 4px; }
+  h2 { color: #569cd6; margin-top: 28px; border-bottom: 1px solid #3c3c3c; padding-bottom: 6px; }
+  .subtitle { color: #858585; font-size: 12px; margin-bottom: 20px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 24px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+  .swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(255,255,255,.15); flex-shrink: 0; }
+  .section { background: #252526; border: 1px solid #3c3c3c; border-radius: 6px; padding: 16px 20px; margin: 12px 0; }
+  .line-block { margin-bottom: 20px; }
+  .line-label { color: #858585; font-size: 11px; margin-bottom: 4px; }
+  .keystroke-line { word-break: break-all; line-height: 2.2; }
+  .key {
+    border-radius: 4px; padding: 1px 5px; margin: 0 1px;
+    font-size: 11px; font-weight: bold;
+    border: 1px solid rgba(0,0,0,.25);
+    display: inline-block; white-space: nowrap; vertical-align: middle;
+  }
+  .text { color: #d4d4d4; }
+  .reconstructed {
+    white-space: pre-wrap; color: #9cdcfe;
+    background: #1e1e2e; border-radius: 4px;
+    padding: 10px 14px; margin-top: 8px;
+  }
+  .stats { font-size: 12px; color: #858585; margin-top: 8px; }
+  .stats table { border-collapse: collapse; margin-top: 6px; }
+  .stats td { padding: 2px 12px 2px 0; }
+  .stats td:first-child { color: #c8c8c8; }
+  .note { background: #2d2d1e; border: 1px solid #666030; border-radius: 6px;
+          padding: 10px 14px; margin-top: 16px; font-size: 12px; color: #d7ba7d; }
+</style>
+</head>
+<body>
+<h1>Keystroke Log Viewer</h1>
+<p class="subtitle">Color-coded keystroke log with reconstruction</p>
+
+<h2>Legend</h2>
+<div class="legend">
+  <div class="legend-item"><div class="swatch" style="background:#ff6b6b"></div><span>Ctrl combos</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#ffd700"></div><span>Backspace / Delete</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#6ddc8b"></div><span>Enter</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#da70d6"></div><span>CapsLock / Modifiers</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#87ceeb"></div><span>Navigation (Home/End/Arrows)</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#ffa07a"></div><span>Alt combos</span></div>
+  <div class="legend-item"><div class="swatch" style="background:#c8c8c8"></div><span>Other special</span></div>
+</div>
+<h2>Keystrokes by Line</h2>
+<div class="line-block">
+  <div class="line-label">Line 1</div>
+  <div class="section">
+    <div class="keystroke-line"><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+c]">[Ctrl+c]</span><span class="text">a</span><span class="text">a</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">a</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">a</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">f</span><span class="text">s</span><span class="text">d</span><span class="text">;</span><span class="text">l</span><span class="text">s</span><span class="text">d</span><span class="text">&#x27;</span><span class="text">f</span><span class="text">s</span><span class="text">l</span><span class="text">k</span><span class="text">j</span><span class="text">d</span><span class="text">f</span><span class="text">;</span><span class="text">s</span><span class="text">d</span><span class="text">l</span><span class="text">k</span><span class="text">f</span><span class="text">j</span><span class="text">s</span><span class="text">;</span><span class="text">d</span><span class="text">f</span><span class="key key-ctrl" style="background:#ff6b6b;color:#000" title="[Ctrl+Ins]">[Ctrl+Ins]</span><span class="key key-navigation" style="background:#87ceeb;color:#000" title="[Home]">[Home]</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="text">c</span><span class="text">d</span><span class="text"> </span><span class="text">D</span><span class="text">o</span><span class="text">w</span><span class="text">n</span><span class="text">W</span><span class="text">h</span><span class="text">e</span><span class="text">r</span><span class="text">e</span><span class="text"> </span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="text">P</span><span class="text">u</span><span class="text">f</span><span class="text">k</span><span class="text">f</span><span class="text"> </span><span class="text">a</span><span class="text">r</span><span class="text">j</span><span class="text"> </span><span class="text">D</span><span class="text"> </span><span class="text">l</span><span class="text">f</span><span class="text">f</span><span class="text"> </span><span class="text">o</span><span class="text">n</span><span class="text"> </span><span class="text">k</span><span class="text">e</span><span class="text">z</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="text">/</span><span class="text">e</span><span class="text">n</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="key key-delete" style="background:#ffd700;color:#000" title="[Backspace]">[Backspace]</span><span class="text">f</span><span class="text">n</span><span class="text">l</span><span class="text">s</span><span class="text">k</span><span class="text">g</span><span class="text">/</span><span class="text">f</span><span class="text">l</span><span class="text"> </span><span class="text">j</span><span class="text">g</span><span class="text">p</span><span class="key key-modifier" style="background:#da70d6;color:#000" title="[CapsLock]">[CapsLock]</span><span class="text">H</span><span class="key key-enter" style="background:#6ddc8b;color:#000" title="[Enter]">[Enter]</span></div>
+    <div class="stats">
+      <strong>Notable keys pressed:</strong>
+      <table>
+        <tr><td><span class="key" style="background:#ff6b6b;color:#000">[Ctrl+c]</span></td><td>×7</td></tr>
+        <tr><td><span class="key" style="background:#ffd700;color:#000">[Backspace]</span></td><td>×7</td></tr>
+        <tr><td><span class="key" style="background:#ff6b6b;color:#000">[Ctrl+Ins]</span></td><td>×1</td></tr>
+        <tr><td><span class="key" style="background:#87ceeb;color:#000">[Home]</span></td><td>×1</td></tr>
+        <tr><td><span class="key" style="background:#da70d6;color:#000">[CapsLock]</span></td><td>×1</td></tr>
+        <tr><td><span class="key" style="background:#6ddc8b;color:#000">[Enter]</span></td><td>×1</td></tr>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#858585;">Reconstructed text <em>(Backspace/Enter/CapsLock applied; navigation treated as no-op)</em>:</div>
+    <div class="reconstructed">sdfssdfsdfaasdfsdfsdfsdfasdfasdfsdfsd;lsd&#x27;fslkjdf;sdlkfjs;dcd DownWherePufkf arj D lff on /fnlskg/fl jgph
+</div>
+  </div>
+</div>
+<div class="line-block">
+  <div class="line-label">Line 2</div>
+  <div class="section">
+    <div class="keystroke-line"><span class="text">s</span><span class="text">U</span><span class="text">D</span><span class="text">L</span><span class="text"> </span><span class="text">Z</span><span class="text">D</span><span class="text">I</span><span class="text">F</span><span class="text"> </span><span class="text">W</span><span class="text">G</span><span class="text">F</span><span class="text">L</span><span class="text">J</span><span class="key key-modifier" style="background:#da70d6;color:#000" title="[CapsLock]">[CapsLock]</span><span class="text">.</span><span class="text">s</span><span class="text"> </span><span class="text">f</span><span class="text">t</span><span class="text">d</span><span class="text">l</span><span class="text">s</span><span class="text">.</span><span class="text"> </span><span class="text">W</span><span class="text">g</span><span class="text">f</span><span class="text">l</span><span class="text"> </span><span class="text">d</span><span class="text">s</span><span class="text"> </span></div>
+    <div class="stats">
+      <strong>Notable keys pressed:</strong>
+      <table>
+        <tr><td><span class="key" style="background:#da70d6;color:#000">[CapsLock]</span></td><td>×1</td></tr>
+      </table>
+    </div>
+    <div style="margin-top:10px;font-size:12px;color:#858585;">Reconstructed text <em>(Backspace/Enter/CapsLock applied; navigation treated as no-op)</em>:</div>
+    <div class="reconstructed">sUDL ZDIF WGFLJ.S FTDLS. wGFL DS </div>
+  </div>
+</div>
+
+<h2>Observations</h2>
+<div class="note">
+  <strong>Line 1:</strong> 7× [Ctrl+c] in quick succession — likely mashing Ctrl+C to interrupt a running process.<br>
+  [Ctrl+Ins] = copy shortcut (alternative to Ctrl+C in some apps).<br>
+  [Home] then [Backspace] — moved cursor to start of line, then backspaced (no-op at position 0 in most shells).<br>
+  Multiple [Backspace] clusters show text corrections mid-typing.
+</div>
+<div class="note">
+  <strong>Line 2:</strong> Starts with uppercase characters (<code>sUDL ZDIF WGFLJ</code>) — CapsLock was active.<br>
+  [CapsLock] mid-line turns it off, then lowercase resumes.<br>
+  The content looks like it may have been typed in the wrong window (password/sensitive text accidentally typed into a logger).
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Build artifacts
+ESP32S3/build/
+*.bin
+*.elf
+*.o
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Node
+node_modules/
+
+# Pi agent
+.pi/
